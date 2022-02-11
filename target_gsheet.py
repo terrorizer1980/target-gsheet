@@ -189,6 +189,8 @@ def persist_lines(service, spreadsheet, lines, batch_size):
         elif isinstance(msg, singer.SchemaMessage):
             schemas[msg.stream] = msg.schema
             key_properties[msg.stream] = msg.key_properties
+        elif isinstance(msg, singer.ActivateVersionMessage):
+            logger.debug('Activating version {}'.format(msg.version))
         else:
             raise Exception("Unrecognized message {}".format(msg))
 
